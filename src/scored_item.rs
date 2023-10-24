@@ -1,14 +1,8 @@
 use std::cmp::Ordering;
 
-pub struct ScoredItem<T, S: Ord> {
-    pub score: S,
-    pub item: T,
-}
-
-impl<T, S: Ord> ScoredItem<T, S> {
-    pub fn new(score: S, item: T) -> Self {
-        Self { score, item }
-    }
+pub(crate) struct ScoredItem<T, S: Ord> {
+    pub(crate) score: S,
+    pub(crate) item: T,
 }
 
 impl<T, S: Ord> PartialEq for ScoredItem<T, S> {
