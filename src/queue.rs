@@ -13,7 +13,7 @@ impl<T, S: Ord, F: Fn(&T) -> S> PriorityQueue<T, S, F> {
         Self { heap, score_fn }
     }
 
-    pub fn peak(&self) -> Option<&T> {
+    pub fn peek(&self) -> Option<&T> {
         self.heap.peek().map(|item| &item.item)
     }
 
@@ -41,20 +41,23 @@ mod test {
         let score_fn = |s: &String| s.len();
         let mut queue = PriorityQueue::new(score_fn);
 
+        assert!(queue.peek().is_none());
+
         queue.push("a".to_string()); // score = 1
         queue.push("ccc".to_string()); // score = 3
         queue.push("bb".to_string()); // score = 2
         queue.push_with_score("b".to_string(), 10); // score = 10
 
-        assert_eq!(queue.peak(), Some(&"b".to_string()));
+        assert_eq!(queue.peek(), Some(&"b".to_string()));
         assert_eq!(queue.pop(), Some("b".to_string()));
         assert_eq!(queue.pop(), Some("ccc".to_string()));
         assert_eq!(queue.pop(), Some("bb".to_string()));
         assert_eq!(queue.pop(), Some("a".to_string()));
+        assert!(queue.peek().is_none());
     }
 
     #[test]
-    fn tset_reverse_order() {
+    fn test_priority_queue_reverse_order() {
         let score_fn = |s: &String| Reverse(s.len());
         let mut queue = PriorityQueue::new(score_fn);
 
@@ -63,10 +66,11 @@ mod test {
         queue.push("bb".to_string()); // score = -2
         queue.push_with_score("b".to_string(), Reverse(10)); // score = -10
 
-        assert_eq!(queue.peak(), Some(&"a".to_string()));
+        assert_eq!(queue.peek(), Some(&"a".to_string()));
         assert_eq!(queue.pop(), Some("a".to_string()));
         assert_eq!(queue.pop(), Some("bb".to_string()));
         assert_eq!(queue.pop(), Some("ccc".to_string()));
         assert_eq!(queue.pop(), Some("b".to_string()));
+        assert!(queue.peek().is_none());
     }
 }

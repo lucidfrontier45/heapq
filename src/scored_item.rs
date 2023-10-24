@@ -41,7 +41,7 @@ impl<T, S: Ord> From<(S, T)> for ScoredItem<T, S> {
 }
 
 #[cfg(test)]
-mod tests {
+mod test {
     use super::ScoredItem;
 
     #[test]
