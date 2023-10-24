@@ -2,32 +2,39 @@ use std::collections::BinaryHeap;
 
 use crate::scored_item::ScoredItem;
 
+/// A priority queue with a score function.
 pub struct PriorityQueue<T, S: Ord, F: Fn(&T) -> S> {
     heap: BinaryHeap<ScoredItem<T, S>>,
     score_fn: F,
 }
 
 impl<T, S: Ord, F: Fn(&T) -> S> PriorityQueue<T, S, F> {
+    /// Creates a new priority queue with the given score function.
     pub fn new(score_fn: F) -> Self {
         let heap = BinaryHeap::new();
         Self { heap, score_fn }
     }
 
+    /// Returns the reference to the first elements in the queue.
     pub fn peek(&self) -> Option<&T> {
         self.heap.peek().map(|item| &item.item)
     }
 
+    /// Returns the first elements in the queue.
     pub fn pop(&mut self) -> Option<T> {
         self.heap.pop().map(|item| item.item)
     }
 
-    pub fn push_with_score(&mut self, item: T, score: S) {
-        self.heap.push(ScoredItem { item, score });
-    }
-
+    /// Pushes an item into the queue.
+    /// The score of the item is calculated by the score function.
     pub fn push(&mut self, item: T) {
         let score = (self.score_fn)(&item);
         self.push_with_score(item, score);
+    }
+    /// Pushes an item into the queue with the given score
+    /// without using the score function.
+    pub fn push_with_score(&mut self, item: T, score: S) {
+        self.heap.push(ScoredItem { item, score });
     }
 }
 

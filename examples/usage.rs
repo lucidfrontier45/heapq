@@ -1,18 +1,3 @@
-# Heapq
-Priority Queue with scoring function
-
-# Usage
-
-```toml
-[dependencies]
-heapq = "0.1.0"
-```
-
-In the code you first need to create an instance with `heaqp::PriorityQueue::new`. It takes a closure that converts your item type `&T` into score type `S: Ord`. Then you can use `push/pop/peek` methods in the same way as `std::collections::BinaryHeap`.
-
-# Example
-
-```rust
 use std::cmp::Reverse;
 
 use heapq::PriorityQueue;
@@ -65,4 +50,3 @@ fn main() {
     assert_eq!(queue.pop(), Some("b".to_string()));
     assert!(queue.peek().is_none());
 }
-```
