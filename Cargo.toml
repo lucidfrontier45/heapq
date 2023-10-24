@@ -10,4 +10,4 @@ documentation = "https://docs.rs/heapq"
 repository = "https://github.com/lucidfrontier45/heapq"
 homepage = "https://crates.io/crates/heapq"
 categories = ["data-structures", "algorithms"]
-keywords = ["priority queue", "head queue", "data structure"]
+keywords = ["priority", "queue", "heap", "data-structure"]
