@@ -6,6 +6,7 @@ edition = "2021"
 authors = ["杜世橋 Du Shiqiao <lucidfrontier.45@gmail.com>"]
 readme = "README.md"
 license = "MIT"
+documentation = "https://docs.rs/heapq"
 repository = "https://github.com/lucidfrontier45/heapq"
 homepage = "https://crates.io/crates/heapq"
 categories = ["data-structures", "algorithms"]
