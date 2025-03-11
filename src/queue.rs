@@ -36,6 +36,11 @@ impl<T, S: Ord> PriorityQueue<T, S> {
     pub fn push_with_score(&mut self, item: T, score: S) {
         self.heap.push(ScoredItem { item, score });
     }
+
+    /// Converts the priority queue into a vector of (score, item) pairs.
+    pub fn into_vec(self) -> Vec<(S, T)> {
+        self.heap.into_iter().map(|x| (x.score, x.item)).collect()
+    }
 }
 
 #[cfg(test)]
@@ -79,5 +84,28 @@ mod test {
         assert_eq!(queue.pop(), Some("ccc".to_string()));
         assert_eq!(queue.pop(), Some("b".to_string()));
         assert!(queue.peek().is_none());
+    }
+
+    #[test]
+    fn test_into_vec() {
+        let score_fn = Box::new(|s: &String| s.len());
+        let mut queue = PriorityQueue::new(score_fn);
+
+        queue.push("a".to_string()); // score = 1
+        queue.push("ccc".to_string()); // score = 3
+        queue.push("bb".to_string()); // score = 2
+        queue.push_with_score("b".to_string(), 10); // score = 10
+
+        let mut vec = queue.into_vec();
+        vec.sort_by_key(|x| x.0);
+        assert_eq!(
+            vec,
+            vec![
+                (1, "a".to_string()),
+                (2, "bb".to_string()),
+                (3, "ccc".to_string()),
+                (10, "b".to_string()),
+            ]
+        );
     }
 }
