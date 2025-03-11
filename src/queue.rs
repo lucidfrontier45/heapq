@@ -3,14 +3,14 @@ use std::collections::BinaryHeap;
 use crate::scored_item::ScoredItem;
 
 /// A priority queue with a score function.
-pub struct PriorityQueue<T, S: Ord, F: Fn(&T) -> S> {
+pub struct PriorityQueue<T, S: Ord> {
     heap: BinaryHeap<ScoredItem<T, S>>,
-    score_fn: F,
+    score_fn: Box<dyn Fn(&T) -> S>,
 }
 
-impl<T, S: Ord, F: Fn(&T) -> S> PriorityQueue<T, S, F> {
+impl<T, S: Ord> PriorityQueue<T, S> {
     /// Creates a new priority queue with the given score function.
-    pub fn new(score_fn: F) -> Self {
+    pub fn new(score_fn: Box<dyn Fn(&T) -> S>) -> Self {
         let heap = BinaryHeap::new();
         Self { heap, score_fn }
     }
@@ -45,7 +45,7 @@ mod test {
     use super::PriorityQueue;
     #[test]
     fn test_priority_queue() {
-        let score_fn = |s: &String| s.len();
+        let score_fn = Box::new(|s: &String| s.len());
         let mut queue = PriorityQueue::new(score_fn);
 
         assert!(queue.peek().is_none());
@@ -65,7 +65,7 @@ mod test {
 
     #[test]
     fn test_priority_queue_reverse_order() {
-        let score_fn = |s: &String| Reverse(s.len());
+        let score_fn = Box::new(|s: &String| Reverse(s.len()));
         let mut queue = PriorityQueue::new(score_fn);
 
         queue.push("a".to_string()); // score = -1

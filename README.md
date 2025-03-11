@@ -19,7 +19,7 @@ use heapq::PriorityQueue;
 
 fn main() {
     // a score function that returns the length of a string
-    let score_fn = |s: &String| s.len();
+    let score_fn = Box::new(|s: &String| s.len());
     // create a new priority queue with the score function
     let mut queue = PriorityQueue::new(score_fn);
 
@@ -48,7 +48,7 @@ fn main() {
     assert!(queue.peek().is_none());
 
     // you can also use a reverse order
-    let score_fn = |s: &String| Reverse(s.len());
+    let score_fn = Box::new(|s: &String| Reverse(s.len()));
     let mut queue = PriorityQueue::new(score_fn);
 
     queue.push("a".to_string()); // score = -1
