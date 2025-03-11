@@ -3,9 +3,12 @@ Priority Queue with scoring function
 
 # Usage
 
+- Rust Edtion: 2024
+- MSRV: 1.85
+
 ```toml
 [dependencies]
-heapq = "0.1.0"
+heapq = "0.2.0"
 ```
 
 In the code you first need to create an instance with `heaqp::PriorityQueue::new`. It takes a closure that converts your item type `&T` into score type `S: Ord`. Then you can use `push/pop/peek` methods in the same way as `std::collections::BinaryHeap`.

@@ -1,8 +1,9 @@
 [package]
 name = "heapq"
 description = "Priority Queue with scoring function"
-version = "0.1.0"
-edition = "2021"
+version = "0.2.0"
+edition = "2024"
+rust-version = "1.85"
 authors = ["杜世橋 Du Shiqiao <lucidfrontier.45@gmail.com>"]
 readme = "README.md"
 license = "MIT"
