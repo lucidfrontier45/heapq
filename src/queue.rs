@@ -17,12 +17,12 @@ impl<T, S: Ord> PriorityQueue<T, S> {
 
     /// Returns the reference to the first elements in the queue.
     pub fn peek(&self) -> Option<&T> {
-        self.heap.peek().map(|item| &item.item)
+        self.heap.peek().map(|scored_item| &scored_item.item)
     }
 
     /// Returns the first elements in the queue.
     pub fn pop(&mut self) -> Option<T> {
-        self.heap.pop().map(|item| item.item)
+        self.heap.pop().map(|scored_item| scored_item.item)
     }
 
     /// Pushes an item into the queue.
@@ -31,6 +31,7 @@ impl<T, S: Ord> PriorityQueue<T, S> {
         let score = (self.score_fn)(&item);
         self.push_with_score(item, score);
     }
+
     /// Pushes an item into the queue with the given score
     /// without using the score function.
     pub fn push_with_score(&mut self, item: T, score: S) {
