@@ -1,6 +1,6 @@
 use std::cmp::Reverse;
 
-use heapq::PriorityQueue;
+use fpq::PriorityQueue;
 
 fn main() {
     // a score function that returns the length of a string

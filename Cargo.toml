@@ -1,14 +1,14 @@
 [package]
-name = "heapq"
-description = "Priority Queue with scoring function"
-version = "0.2.0"
+name = "fpq"
+description = "Priority Queue with scoring Function"
+version = "0.3.0"
 edition = "2024"
 rust-version = "1.85"
 authors = ["杜世橋 Du Shiqiao <lucidfrontier.45@gmail.com>"]
 readme = "README.md"
 license = "MIT"
-documentation = "https://docs.rs/heapq"
-repository = "https://github.com/lucidfrontier45/heapq"
-homepage = "https://crates.io/crates/heapq"
+documentation = "https://docs.rs/fpq"
+repository = "https://github.com/lucidfrontier45/fpq"
+homepage = "https://crates.io/crates/fpq"
 categories = ["data-structures", "algorithms"]
 keywords = ["priority", "queue", "heap", "data-structure"]
