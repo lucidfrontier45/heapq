@@ -3,7 +3,7 @@ Priority Queue with scoring function
 
 # Usage
 
-- Rust Edtion: 2024
+- Rust Edition: 2024
 - MSRV: 1.85
 
 ```toml
@@ -11,7 +11,7 @@ Priority Queue with scoring function
 heapq = "0.2.0"
 ```
 
-In the code you first need to create an instance with `heaqp::PriorityQueue::new`. It takes a closure that converts your item type `&T` into score type `S: Ord`. Then you can use `push/pop/peek` methods in the same way as `std::collections::BinaryHeap`.
+In the code, you first need to create an instance with `heapq::PriorityQueue::new`. It takes a closure that converts your item type `&T` into score type `S: Ord`. Then you can use `push/pop/peek` methods in the same way as `std::collections::BinaryHeap`.
 
 # Example
 
@@ -35,7 +35,7 @@ fn main() {
     queue.push("ccc".to_string()); // score = 3
     queue.push("bb".to_string()); // score = 2
 
-    // you can also push an item with a explicit score
+    // you can also push an item with an explicit score
     queue.push_with_score("b".to_string(), 10); // score = 10
 
     // peek the item with the highest priority
@@ -58,7 +58,7 @@ fn main() {
     queue.push("ccc".to_string()); // score = -3
     queue.push("bb".to_string()); // score = -2
 
-    // remember to use Reverse when pushing an item with a explicit score
+    // remember to use Reverse when pushing an item with an explicit score
     queue.push_with_score("b".to_string(), Reverse(10)); // score = -10
 
     assert_eq!(queue.peek(), Some(&"a".to_string()));
