@@ -16,13 +16,17 @@ impl<T, S: Ord + Copy> PriorityQueue<T, S> {
     }
 
     /// Returns the reference to the first elements in the queue.
-    pub fn peek(&self) -> Option<&T> {
-        self.heap.peek().map(|scored_item| &scored_item.item)
+    pub fn peek(&self) -> Option<(S, &T)> {
+        self.heap
+            .peek()
+            .map(|scored_item| (scored_item.score, &scored_item.item))
     }
 
     /// Returns the first elements in the queue.
-    pub fn pop(&mut self) -> Option<T> {
-        self.heap.pop().map(|scored_item| scored_item.item)
+    pub fn pop(&mut self) -> Option<(S, T)> {
+        self.heap
+            .pop()
+            .map(|scored_item| (scored_item.score, scored_item.item))
     }
 
     /// Pushes an item into the queue.
@@ -61,11 +65,11 @@ mod test {
         queue.push("bb".to_string()); // score = 2
         queue.push_with_score("b".to_string(), 10); // score = 10
 
-        assert_eq!(queue.peek(), Some(&"b".to_string()));
-        assert_eq!(queue.pop(), Some("b".to_string()));
-        assert_eq!(queue.pop(), Some("ccc".to_string()));
-        assert_eq!(queue.pop(), Some("bb".to_string()));
-        assert_eq!(queue.pop(), Some("a".to_string()));
+        assert_eq!(queue.peek(), Some((10, &"b".to_string())));
+        assert_eq!(queue.pop(), Some((10, "b".to_string())));
+        assert_eq!(queue.pop(), Some((3, "ccc".to_string())));
+        assert_eq!(queue.pop(), Some((2, "bb".to_string())));
+        assert_eq!(queue.pop(), Some((1, "a".to_string())));
         assert!(queue.peek().is_none());
     }
 
@@ -79,11 +83,11 @@ mod test {
         queue.push("bb".to_string()); // score = -2
         queue.push_with_score("b".to_string(), Reverse(10)); // score = -10
 
-        assert_eq!(queue.peek(), Some(&"a".to_string()));
-        assert_eq!(queue.pop(), Some("a".to_string()));
-        assert_eq!(queue.pop(), Some("bb".to_string()));
-        assert_eq!(queue.pop(), Some("ccc".to_string()));
-        assert_eq!(queue.pop(), Some("b".to_string()));
+        assert_eq!(queue.peek(), Some((Reverse(1), &"a".to_string())));
+        assert_eq!(queue.pop(), Some((Reverse(1), "a".to_string())));
+        assert_eq!(queue.pop(), Some((Reverse(2), "bb".to_string())));
+        assert_eq!(queue.pop(), Some((Reverse(3), "ccc".to_string())));
+        assert_eq!(queue.pop(), Some((Reverse(10), "b".to_string())));
         assert!(queue.peek().is_none());
     }
 

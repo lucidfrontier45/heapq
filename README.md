@@ -35,17 +35,17 @@ fn main() {
     queue.push("ccc".to_string()); // score = 3
     queue.push("bb".to_string()); // score = 2
 
-    // you can also push an item with an explicit score
+    // you can also push an item with a explicit score
     queue.push_with_score("b".to_string(), 10); // score = 10
 
     // peek the item with the highest priority
-    assert_eq!(queue.peek(), Some(&"b".to_string()));
+    assert_eq!(queue.peek(), Some((10, &"b".to_string())));
 
     // pop the item with the highest priority
-    assert_eq!(queue.pop(), Some("b".to_string()));
-    assert_eq!(queue.pop(), Some("ccc".to_string()));
-    assert_eq!(queue.pop(), Some("bb".to_string()));
-    assert_eq!(queue.pop(), Some("a".to_string()));
+    assert_eq!(queue.pop(), Some((10, "b".to_string())));
+    assert_eq!(queue.pop(), Some((3, "ccc".to_string())));
+    assert_eq!(queue.pop(), Some((2, "bb".to_string())));
+    assert_eq!(queue.pop(), Some((1, "a".to_string())));
 
     // the queue is empty again
     assert!(queue.peek().is_none());
@@ -61,11 +61,12 @@ fn main() {
     // remember to use Reverse when pushing an item with an explicit score
     queue.push_with_score("b".to_string(), Reverse(10)); // score = -10
 
-    assert_eq!(queue.peek(), Some(&"a".to_string()));
-    assert_eq!(queue.pop(), Some("a".to_string()));
-    assert_eq!(queue.pop(), Some("bb".to_string()));
-    assert_eq!(queue.pop(), Some("ccc".to_string()));
-    assert_eq!(queue.pop(), Some("b".to_string()));
+    assert_eq!(queue.peek(), Some((Reverse(1), &"a".to_string())));
+    assert_eq!(queue.pop(), Some((Reverse(1), "a".to_string())));
+    assert_eq!(queue.pop(), Some((Reverse(2), "bb".to_string())));
+    assert_eq!(queue.pop(), Some((Reverse(3), "ccc".to_string())));
+    assert_eq!(queue.pop(), Some((Reverse(10), "b".to_string())));
+
     assert!(queue.peek().is_none());
 }
 ```
