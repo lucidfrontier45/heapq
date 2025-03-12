@@ -3,12 +3,12 @@ use std::collections::BinaryHeap;
 use crate::scored_item::ScoredItem;
 
 /// A priority queue with a score function.
-pub struct PriorityQueue<T, S: Ord> {
+pub struct PriorityQueue<T, S: Ord + Copy> {
     heap: BinaryHeap<ScoredItem<T, S>>,
     score_fn: Box<dyn Fn(&T) -> S>,
 }
 
-impl<T, S: Ord> PriorityQueue<T, S> {
+impl<T, S: Ord + Copy> PriorityQueue<T, S> {
     /// Creates a new priority queue with the given score function.
     pub fn new(score_fn: Box<dyn Fn(&T) -> S>) -> Self {
         let heap = BinaryHeap::new();

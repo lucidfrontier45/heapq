@@ -1,31 +1,31 @@
 use std::cmp::Ordering;
 
-pub(crate) struct ScoredItem<T, S: Ord> {
+pub(crate) struct ScoredItem<T, S: Ord + Copy> {
     pub(crate) score: S,
     pub(crate) item: T,
 }
 
-impl<T, S: Ord> PartialEq for ScoredItem<T, S> {
+impl<T, S: Ord + Copy> PartialEq for ScoredItem<T, S> {
     fn eq(&self, other: &Self) -> bool {
         self.score == other.score
     }
 }
 
-impl<T, S: Ord> Eq for ScoredItem<T, S> {}
+impl<T, S: Ord + Copy> Eq for ScoredItem<T, S> {}
 
-impl<T, S: Ord> Ord for ScoredItem<T, S> {
+impl<T, S: Ord + Copy> Ord for ScoredItem<T, S> {
     fn cmp(&self, other: &Self) -> Ordering {
         self.score.cmp(&other.score)
     }
 }
 
-impl<T, S: Ord> PartialOrd for ScoredItem<T, S> {
+impl<T, S: Ord + Copy> PartialOrd for ScoredItem<T, S> {
     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
         Some(self.cmp(other))
     }
 }
 
-impl<T, S: Ord> From<(S, T)> for ScoredItem<T, S> {
+impl<T, S: Ord + Copy> From<(S, T)> for ScoredItem<T, S> {
     fn from(value: (S, T)) -> Self {
         Self {
             score: value.0,
